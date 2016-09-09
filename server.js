@@ -12,11 +12,12 @@ const app = express()
 const port = process.env.Port || 3000
 app.set('port', port)
 
-// app.set('view engine', 'pug')
+app.set('view engine', 'pug')
 
-// if (process.env.Node_ENV !== 'production') {
-// 	app.locals.pretty = true
-// }
+// Keeps variable set at runtime to keep pug string from minifying
+if (process.env.NODE_ENV !== 'production') {
+	app.locals.pretty = true
+}
 
 // app.locals.......
 
@@ -25,9 +26,9 @@ app.set('port', port)
 app.use(express.static('public'))
 
 // Routes
-app.get('/', (req, res) =>
-	res.send('<h1>Welcome to MyApp!</h1>')
-)
+app.get('/', (req, res) => {
+	res.render('index')
+})
 
 
 
