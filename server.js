@@ -21,6 +21,7 @@ app.set('port', port)
 // app.locals.......
 
 // Middlewares
+// To serve static files such as images, CSS files, and JavaScript files
 app.use(express.static('public'))
 
 // Routes
