@@ -2,7 +2,7 @@
 
 const express = require('express')
 const cheerio = require('cheerio')
-const fetch = require('fetch')
+// const fetch = require('fetch')
 const routes = require('./routes/') // same as ./routes/index.js
 
 // Initialize
@@ -21,7 +21,7 @@ app.set('port', port)
 // app.locals.......
 
 // Middlewares
-
+app.use(express.static('public'))
 
 // Routes
 app.get('/', (req, res) =>
