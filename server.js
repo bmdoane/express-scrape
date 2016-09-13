@@ -1,8 +1,8 @@
 'use strict'
 
 const express = require('express')
-const cheerio = require('cheerio')
-// const fetch = require('fetch')
+const { load } = require('cheerio')
+const fetch = require('node-fetch')
 const routes = require('./routes/') // same as ./routes/index.js
 
 // Initialize
@@ -19,7 +19,17 @@ if (process.env.NODE_ENV !== 'production') {
 	app.locals.pretty = true
 }
 
-// app.locals.......
+fetch('https://github.com/bmdoane')
+  .then(function(res) {
+      return res.text();
+  }).then(function(body) {
+      const $ = load(body);
+      // Parsing each square from grid
+      const day = $('rect')
+      // Creating array of days (passing in day and getting its properties)
+      const year = Array.from(day, x => x.attribs)
+      console.log("year", year);
+  });
 
 // Middlewares
 // To serve static files such as images, CSS files, and JavaScript files
