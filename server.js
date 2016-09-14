@@ -38,7 +38,6 @@ fetch(url)
     return yearBlock
   })
   .then((array) => {
-  	//console.log('array', array)
   	return parseData(array)
   })
   .then((dataObj) => {
@@ -47,7 +46,6 @@ fetch(url)
   	let weekCount = week.map(x => x['data-count']).map(x => Number(x)).reduce( (prev, curr) => prev + curr )
   	let monthCount = month.map(x => x['data-count']).map(x => Number(x)).reduce( (prev, curr) => prev + curr )
 		app.get('/', (req, res) => {
-			//res.render('index', {user: `${Args[0]}`, day, week, month})
 			res.render('index', { name: `${Args[0]}`, dayCount, weekCount, monthCount})
 		})
   })
