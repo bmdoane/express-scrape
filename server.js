@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict'
 
 // 3rd Party Modules
@@ -10,7 +11,7 @@ const parseData = require('./parse-data')
 const buildStrings = require('./build-strings')
 
 const [,,...Args] = process.argv
-const url = `https://github.com/${Args}`
+const url = `https://github.com/${Args[0]}`
 
 // Initialize
 const app = express()
@@ -24,7 +25,7 @@ app.set('view engine', 'pug')
 // To serve static files such as images, CSS files, and JavaScript files
 app.use(express.static('public'))
 
-fetch('https://github.com/bmdoane')
+fetch(url)
   .then((res) => {
       return res.text();
   })
@@ -34,7 +35,6 @@ fetch('https://github.com/bmdoane')
     const daySquare = $('rect')
     // Creating array of days (passing in day and getting its properties)
     const yearBlock = Array.from(daySquare, x => x.attribs)
-    //console.log("year", yearBlock);
     return yearBlock
   })
   .then((array) => {
@@ -43,24 +43,15 @@ fetch('https://github.com/bmdoane')
   })
   .then((dataObj) => {
   	const { day, week, month} = dataObj
-  	console.log('day', day[0]['data-count']);
-  	console.log('week', week)
-  	console.log('week', week.map(x => x['data-count']).map(x => Number(x)).reduce( (prev, curr) => prev + curr ))
-  	console.log('month', month.map(x => x['data-count']))
+  	let dayCount = day[0]['data-count']
+  	let weekCount = week.map(x => x['data-count']).map(x => Number(x)).reduce( (prev, curr) => prev + curr )
+  	let monthCount = month.map(x => x['data-count']).map(x => Number(x)).reduce( (prev, curr) => prev + curr )
 		app.get('/', (req, res) => {
 			//res.render('index', {user: `${Args[0]}`, day, week, month})
-			res.render('index', { day, week, month})
+			res.render('index', { name: `${Args[0]}`, dayCount, weekCount, monthCount})
 		})
   })
 
-
-// Routes
-
-
-// 404 catch and forward to error handler
-// app.use((req, res) => {
-// 	res.render('404')
-// })
 
 // Listen to requests on the provided port and log when available
 app.listen(port, () => {

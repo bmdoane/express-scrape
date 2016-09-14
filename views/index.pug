@@ -3,9 +3,13 @@ html
 	head
 		link(rel='stylesheet' href='/lib/bootstrap/dist/css/bootstrap.min.css')
 		link(rel='stylesheet' href='/css/main.css')
-		title My App!
+		title Github Tracker
 	body
 		.container
-		h1.title Are you committed?
+		h1.title Are you committed?  Cause these are your Github commits!
+		ul
+			li #{name} has #{dayCount} commits today.
+			li #{name} has #{weekCount} commits in the last seven days.
+			li #{name} has #{monthCount} commits in the last month.
 	script(src='/lib/jquery/dist/jquery.min.js')
 	script(src='/lib/bootstrap/dist/js/bootstrap.min.js')
