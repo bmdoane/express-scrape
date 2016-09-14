@@ -7,6 +7,8 @@ const fetch = require('node-fetch')
 const routes = require('./routes/') // same as ./routes/index.js
 // Project Modules
 const parseData = require('./parse-data')
+const buildStrings = require('./build-strings')
+
 const [,,...Args] = process.argv
 const url = `https://github.com/${Args}`
 
@@ -40,7 +42,11 @@ fetch('https://github.com/bmdoane')
   	return parseData(array)
   })
   .then((dataObj) => {
-  	const { day, week, month} = dateObj
+  	const { day, week, month} = dataObj
+  	console.log('day', day[0]['data-count']);
+  	console.log('week', week)
+  	console.log('week', week.map(x => x['data-count']).map(x => Number(x)).reduce( (prev, curr) => prev + curr ))
+  	console.log('month', month.map(x => x['data-count']))
 		app.get('/', (req, res) => {
 			//res.render('index', {user: `${Args[0]}`, day, week, month})
 			res.render('index', { day, week, month})
